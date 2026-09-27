@@ -106,14 +106,13 @@ new IntersectionObserver(
   { threshold: 0.5 }
 ).observe(demoVideo);
 
-/* ---------- product carousel (autoplay, loops forever) ---------- */
+/* ---------- product carousel (manual: arrows, dots, click; loops forever) ---------- */
 const carousel = document.querySelector("[data-carousel]");
 const items = [...carousel.querySelectorAll(".carousel-item")];
 const captions = [...carousel.querySelectorAll(".caption")];
 const dots = [...carousel.querySelectorAll("[data-go]")];
 const [prevBtn, nextBtn] = carousel.querySelectorAll(".carousel-btn");
 const slideCount = items.length;
-const HOLD_MS = 3200; // how long each device stays in focus
 const mod = (n, m) => ((n % m) + m) % m;
 
 // `pos` keeps counting up forever; each item sits at its looped distance from it
@@ -152,22 +151,9 @@ function frame(now) {
   requestAnimationFrame(frame);
 }
 
-// autoplay: advance every HOLD_MS while visible and not hovered
-let paused = false;
-let onScreen = false;
-let timer = null;
-function schedule() {
-  clearTimeout(timer);
-  if (reduceMotion || paused || !onScreen || document.hidden) return;
-  timer = setTimeout(() => {
-    target += 1;
-    schedule();
-  }, HOLD_MS);
-}
 function step(dir) {
   target = Math.round(target) + dir;
   if (reduceMotion) pos = target;
-  schedule();
 }
 // jump to slide i the short way round the loop
 function goTo(i) {
@@ -179,15 +165,6 @@ prevBtn.addEventListener("click", () => step(-1));
 nextBtn.addEventListener("click", () => step(1));
 dots.forEach((dot) => dot.addEventListener("click", () => goTo(Number(dot.dataset.go))));
 items.forEach((item, i) => item.addEventListener("click", () => i !== activeSlide && goTo(i)));
-
-const stage = carousel.querySelector(".carousel");
-stage.addEventListener("mouseenter", () => { paused = true; schedule(); });
-stage.addEventListener("mouseleave", () => { paused = false; schedule(); });
-document.addEventListener("visibilitychange", schedule);
-new IntersectionObserver(([entry]) => {
-  onScreen = entry.isIntersecting;
-  schedule();
-}, { threshold: 0.35 }).observe(carousel);
 
 renderCarousel();
 requestAnimationFrame(frame);
