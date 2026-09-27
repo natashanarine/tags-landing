@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>tags — the fitting room inside your browser</title>
+  <meta name="description" content="Every product photo online shows you someone else. tags shows you." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ========== NAV ========== -->
+  <header class="nav">
+    <a href="#top" class="logo" aria-label="tags home">
+      <span>tags</span>
+      <svg class="logo-tag" viewBox="0 0 40 52" aria-hidden="true"><path d="M20 2 36 17v29a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V17Z"/><circle cx="20" cy="15" r="3.5"/></svg>
+    </a>
+    <nav class="nav-links">
+      <a href="#problem">why</a>
+      <a href="#product">product</a>
+      <a href="#demo">demo</a>
+      <a href="#next">next</a>
+    </nav>
+    <a href="#cta" class="btn btn-dark btn-sm">Add to Chrome</a>
+  </header>
+
+  <main id="top">
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" data-hero>
+      <p class="hero-kicker reveal">every product photo online shows you someone else.</p>
+      <h1 class="hero-title">
+        <span class="word" style="--i:0">what</span>
+        <span class="word" style="--i:1">if</span>
+        <span class="word" style="--i:2">it</span>
+        <span class="word" style="--i:3">showed</span>
+        <span class="word accent" style="--i:4">you?</span>
+      </h1>
+      <div class="hero-actions reveal" style="--d:.5s">
+        <a href="#cta" class="btn btn-dark">Add to Chrome — it's free</a>
+        <a href="#demo" class="btn btn-ghost">Watch the demo ↓</a>
+      </div>
+
+      <div class="hero-stage">
+        <div class="laptop hero-laptop">
+          <!-- hanging tag that swings off the laptop -->
+          <div class="hang-tag" aria-hidden="true">
+            <span class="hang-string"></span>
+            <svg viewBox="0 0 120 150"><path d="M60 4 112 50v84a12 12 0 0 1-12 12H20A12 12 0 0 1 8 134V50Z"/><circle cx="60" cy="40" r="9"/></svg>
+            <span class="hang-label">try me</span>
+          </div>
+          <div class="laptop-lid">
+            <div class="laptop-screen">
+              <!-- SWAP: hero try-on images (before = product photo, after = you wearing it) -->
+              <div class="tryon">
+                <img class="tryon-before" src="assets/hero-before.svg" alt="Product photo on a model" />
+                <img class="tryon-after" src="assets/hero-after.svg" alt="The same outfit on you" />
+                <span class="tryon-line"></span>
+                <span class="chip chip-left">you</span>
+                <span class="chip chip-right">product photo</span>
+              </div>
+            </div>
+          </div>
+          <div class="laptop-base"></div>
+        </div>
+      </div>
+
+      <div class="hero-meta">
+        <div>
+          <strong>created by</strong>
+          <span>arhaan, levi, natasha, sweeya</span>
+        </div>
+        <div class="right">
+          <strong>hack gt 13</strong>
+          <span>september 2026</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== PROBLEM ========== -->
+    <section class="section problem" id="problem">
+      <h2 class="section-title reveal">shopping online means guessing.</h2>
+      <div class="tags-row">
+        <article class="price-tag reveal" style="--d:0s">
+          <span class="string"></span>
+          <svg class="tag-shape" viewBox="0 0 220 280" aria-hidden="true">
+            <path class="back" d="M116 12 204 88v164a18 18 0 0 1-18 18H46a18 18 0 0 1-18-18V88Z"/>
+            <path class="front" d="M110 6 198 82v164a18 18 0 0 1-18 18H40a18 18 0 0 1-18-18V82Z"/>
+            <circle cx="110" cy="66" r="13"/>
+          </svg>
+          <div class="tag-body">
+            <p class="stat" data-count="56" data-suffix="%">0%</p>
+            <p>of apparel brands see online return rates of 30% or higher</p>
+          </div>
+        </article>
+        <article class="price-tag reveal" style="--d:.15s">
+          <span class="string"></span>
+          <svg class="tag-shape" viewBox="0 0 220 280" aria-hidden="true">
+            <path class="back" d="M116 12 204 88v164a18 18 0 0 1-18 18H46a18 18 0 0 1-18-18V88Z"/>
+            <path class="front" d="M110 6 198 82v164a18 18 0 0 1-18 18H40a18 18 0 0 1-18-18V82Z"/>
+            <circle cx="110" cy="66" r="13"/>
+          </svg>
+          <div class="tag-body">
+            <p class="stat" data-count="70" data-suffix="%">0%</p>
+            <p>of online shopping carts are abandoned before checkout</p>
+          </div>
+        </article>
+        <article class="price-tag reveal" style="--d:.3s">
+          <span class="string"></span>
+          <svg class="tag-shape" viewBox="0 0 220 280" aria-hidden="true">
+            <path class="back" d="M116 12 204 88v164a18 18 0 0 1-18 18H46a18 18 0 0 1-18-18V88Z"/>
+            <path class="front" d="M110 6 198 82v164a18 18 0 0 1-18 18H40a18 18 0 0 1-18-18V82Z"/>
+            <circle cx="110" cy="66" r="13"/>
+          </svg>
+          <div class="tag-body">
+            <p class="stat" data-count="850" data-prefix="$" data-suffix="B">$0B</p>
+            <p>in merchandise returned by US shoppers in 2025</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== PRODUCT ========== -->
+    <section class="section product" id="product">
+      <h2 class="section-title reveal">
+        <span class="wordmark">tags</span> puts the fitting room<br class="br-lg" /> inside your browser.
+      </h2>
+
+      <div class="devices">
+        <!-- live try on -->
+        <div class="device-col reveal" style="--d:0s">
+          <p class="eyebrow">on any product page</p>
+          <h3>live try on</h3>
+          <div class="laptop float" style="--f:0s">
+            <div class="laptop-lid">
+              <div class="laptop-screen">
+                <!-- SWAP: live try-on images -->
+                <div class="tryon">
+                  <img class="tryon-before" src="assets/live-before.svg" alt="Product page photo" />
+                  <img class="tryon-after" src="assets/live-after.svg" alt="Live try-on result" />
+                  <span class="tryon-line"></span>
+                </div>
+              </div>
+            </div>
+            <div class="laptop-base"></div>
+          </div>
+        </div>
+
+        <!-- outfit feed -->
+        <div class="device-col reveal" style="--d:.15s">
+          <p class="eyebrow">on your phone</p>
+          <h3>outfit feed</h3>
+          <div class="phone float" style="--f:.8s">
+            <div class="phone-screen">
+              <span class="island"></span>
+              <!-- SWAP: outfit feed images (the list is duplicated for a seamless loop) -->
+              <div class="feed">
+                <div class="feed-track">
+                  <img src="assets/feed-1.svg" alt="Outfit 1" />
+                  <img src="assets/feed-2.svg" alt="Outfit 2" />
+                  <img src="assets/feed-3.svg" alt="Outfit 3" />
+                  <img src="assets/feed-1.svg" alt="" aria-hidden="true" />
+                  <img src="assets/feed-2.svg" alt="" aria-hidden="true" />
+                  <img src="assets/feed-3.svg" alt="" aria-hidden="true" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- scan now, try later -->
+        <div class="device-col reveal" style="--d:.3s">
+          <p class="eyebrow">in the store</p>
+          <h3>scan now, try later</h3>
+          <div class="phone float" style="--f:1.6s">
+            <div class="phone-screen">
+              <span class="island"></span>
+              <!-- SWAP: in-store camera image -->
+              <img class="scan-img" src="assets/scan.svg" alt="Scanning a clothing tag in store" />
+              <div class="scan-frame"><i></i><i></i><i></i><i></i><span class="scan-beam"></span></div>
+              <div class="toast">✓ saved for later</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="buy-banner reveal">
+        <p><span>Buy the look:</span> <strong>Every try-on ends in one-tap Visa checkout.</strong></p>
+        <span class="pay-btn" aria-hidden="true"><span class="pay-label">Pay with Visa</span><span class="pay-done">✓ Paid</span></span>
+      </div>
+    </section>
+
+    <!-- ========== DEMO ========== -->
+    <section class="demo" id="demo" data-demo>
+      <div class="demo-sticky">
+        <h2 class="section-title demo-title">see it live.</h2>
+        <div class="laptop demo-laptop">
+          <div class="laptop-lid">
+            <div class="laptop-screen">
+              <!-- SWAP: demo video + poster -->
+              <video src="assets/demo.mp4" poster="assets/demo-poster.svg" controls muted playsinline preload="metadata"></video>
+            </div>
+          </div>
+          <div class="laptop-base"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== HOW IT WORKS ========== -->
+    <section class="section how">
+      <h2 class="section-title reveal">try it. love it. pay for it.</h2>
+      <div class="cards">
+        <article class="card reveal" style="--d:0s">
+          <p class="eyebrow">shoppers</p>
+          <p>See it on yourself, buy with confidence, stop ordering two sizes to send one back.</p>
+        </article>
+        <article class="card reveal" style="--d:.12s">
+          <p class="eyebrow">retailers</p>
+          <p>Every product page and rack becomes a fitting room, with no integration. They pay per try-on.</p>
+        </article>
+        <article class="card reveal" style="--d:.24s">
+          <p class="eyebrow">visa</p>
+          <p>Every try-on ends at a Visa checkout, online, on mobile, and after an in-store scan.</p>
+        </article>
+      </div>
+      <div class="stack reveal">
+        <span class="stack-label">how it works</span>
+        <span class="pill">Decart Lucy VTON</span>
+        <span class="pill">WebRTC</span>
+        <span class="pill">Chrome MV3</span>
+        <span class="pill">TypeScript</span>
+        <span class="pill">Next.js</span>
+      </div>
+      <p class="stack-note reveal">Real-time generative try-on streamed straight into the page.</p>
+    </section>
+
+    <!-- ========== WHAT'S NEXT ========== -->
+    <section class="section next" id="next">
+      <h2 class="section-title reveal">what's next</h2>
+      <div class="cards">
+        <article class="card reveal" style="--d:0s">
+          <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 21 7v10l-9 5-9-5V7Z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>
+          <p class="eyebrow">3d model</p>
+          <p>Create a 3D model of yourself and try on clothes with a full 360° view.</p>
+        </article>
+        <article class="card reveal" style="--d:.12s">
+          <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 13H6Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+          <p class="eyebrow">cross-store bundle</p>
+          <p>Buy a whole look across stores in one checkout.</p>
+        </article>
+        <article class="card reveal" style="--d:.24s">
+          <svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          <p class="eyebrow">more accessible</p>
+          <p>Expanding the extension to browsers beyond Chrome.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section class="section cta" id="cta">
+      <h2 class="cta-title reveal">stop guessing.<br /><span class="accent">see it on you.</span></h2>
+      <div class="reveal" style="--d:.15s">
+        <a href="#" class="btn btn-dark btn-lg">Add tags to Chrome</a>
+      </div>
+      <div class="lineup">
+        <div class="laptop reveal" style="--d:.2s">
+          <div class="laptop-lid">
+            <div class="laptop-screen">
+              <!-- SWAP: lineup laptop image -->
+              <img src="assets/hero-after.svg" alt="" />
+            </div>
+          </div>
+          <div class="laptop-base"></div>
+        </div>
+        <div class="phone reveal" style="--d:.35s">
+          <div class="phone-screen">
+            <span class="island"></span>
+            <!-- SWAP: lineup phone image -->
+            <img src="assets/feed-2.svg" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a href="#top" class="logo"><span>tags</span></a>
+    <p>created by arhaan, levi, natasha &amp; sweeya · hack gt 13 · september 2026</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

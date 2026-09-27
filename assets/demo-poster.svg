@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b1b1b"/><stop offset="1" stop-color="#3a3a3a"/></linearGradient></defs>
+<rect width="1600" height="1000" fill="url(#g)"/>
+
+<text x="80.0" y="100.0" font-family="Figtree, Helvetica, Arial, sans-serif" font-size="55.0" font-weight="800" fill="#ffffff">demo video</text>
+<text x="80.0" y="160.0" font-family="Figtree, Helvetica, Arial, sans-serif" font-size="30.0" fill="#ffffff" opacity=".6">add assets/demo.mp4 (poster: assets/demo-poster.svg)</text>
+</svg>
