@@ -131,7 +131,7 @@ a { color: inherit; text-decoration: none; }
     box-shadow .3s;
 }
 .nav.scrolled { box-shadow: 0 10px 30px -18px rgba(0,0,0,.35); }
-.nav-links { display: flex; gap: 28px; font-weight: 600; color: var(--muted); }
+.nav-links { display: flex; gap: 28px; margin-right: 14px; font-weight: 600; color: var(--muted); }
 .nav-links a:hover { color: var(--ink); }
 
 /* each piece gets an index (--i) so they leave / return one after another */
