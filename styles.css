@@ -711,6 +711,7 @@ a { color: inherit; text-decoration: none; }
 }
 
 .next { padding-top: 60px; }
+.next .cards { grid-template-columns: repeat(2, 1fr); max-width: 800px; margin-left: auto; margin-right: auto; }
 
 /* ---------- cta ---------- */
 .cta { padding-bottom: 0; }
@@ -777,7 +778,7 @@ a { color: inherit; text-decoration: none; }
 /* ---------- responsive ---------- */
 @media (max-width: 900px) {
   .nav-links { display: none; }
-  .tags-row, .cards { grid-template-columns: 1fr; }
+  .tags-row, .cards, .next .cards { grid-template-columns: 1fr; }
   .tags-row { gap: 90px; }
   .price-tag { max-width: 280px; }
   .buy-banner { flex-direction: column; text-align: center; padding: 26px; }
