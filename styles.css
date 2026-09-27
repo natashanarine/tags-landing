@@ -582,7 +582,7 @@ a { color: inherit; text-decoration: none; }
   to { transform: translateY(calc(-50% - 4px)); }
 }
 
-.scan-img { position: absolute; inset: 0; }
+.scan-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .scan-frame {
   position: absolute;
   inset: 32% 18% 34%;

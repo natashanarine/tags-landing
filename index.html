@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>tags — the fitting room inside your browser</title>
   <meta name="description" content="Every product photo online shows you someone else. tags shows you." />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -139,12 +141,8 @@
             <div class="laptop float" style="--f:0s">
               <div class="laptop-lid">
                 <div class="laptop-screen">
-                  <!-- SWAP: live try-on images -->
-                  <div class="tryon">
-                    <img class="tryon-before" src="assets/live-before.svg" alt="Product page photo" />
-                    <img class="tryon-after" src="assets/live-after.svg" alt="Live try-on result" />
-                    <span class="tryon-line"></span>
-                  </div>
+                  <!-- SWAP: live try-on video -->
+                  <video class="live-tryon-video" src="assets/live-tryon-demo.mp4" autoplay loop muted playsinline></video>
                 </div>
               </div>
               <div class="laptop-base"></div>
@@ -158,12 +156,12 @@
                 <!-- SWAP: outfit feed images (the list is duplicated for a seamless loop) -->
                 <div class="feed">
                   <div class="feed-track">
-                    <img src="assets/feed-1.svg" alt="Outfit 1" />
-                    <img src="assets/feed-2.svg" alt="Outfit 2" />
-                    <img src="assets/feed-3.svg" alt="Outfit 3" />
-                    <img src="assets/feed-1.svg" alt="" aria-hidden="true" />
-                    <img src="assets/feed-2.svg" alt="" aria-hidden="true" />
-                    <img src="assets/feed-3.svg" alt="" aria-hidden="true" />
+                    <img src="assets/app-tryon-rhude.png" alt="Wearing a Rhude hoodie in the Tags app" />
+                    <img src="assets/app-tryon-kith.png" alt="Wearing Kith jeans in the Tags app" />
+                    <img src="assets/app-cart.png" alt="Cart in the Tags app" />
+                    <img src="assets/app-tryon-rhude.png" alt="" aria-hidden="true" />
+                    <img src="assets/app-tryon-kith.png" alt="" aria-hidden="true" />
+                    <img src="assets/app-cart.png" alt="" aria-hidden="true" />
                   </div>
                 </div>
               </div>
@@ -176,8 +174,7 @@
             <div class="phone float" style="--f:1.6s">
               <div class="phone-screen">
                 <!-- SWAP: in-store camera image -->
-                <img class="scan-img" src="assets/scan.svg" alt="Scanning a clothing tag in store" />
-                <div class="scan-frame"><i></i><i></i><i></i><i></i><span class="scan-beam"></span></div>
+                <video class="scan-img" src="assets/scan-demo.mp4" autoplay loop muted playsinline></video>
                 <div class="toast">✓ saved for later</div>
               </div>
               <img class="phone-frame" src="assets/iphone-16-pro.svg" alt="" aria-hidden="true" />
