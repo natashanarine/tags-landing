@@ -770,9 +770,8 @@ a { color: inherit; text-decoration: none; }
   line-height: .98;
   margin-bottom: 40px;
 }
-/* Outfit conveyor: figures ride a belt that runs the full page width.
-   script.js sets --half (px width of one image set) so the track and the
-   belt stripes move at the same --speed (px per second). */
+/* Outfit conveyor: a full-width row of figures scrolling on a loop.
+   script.js sets --half (px width of one image set); --speed is px per second. */
 .conveyor {
   --h: clamp(280px, 36vw, 460px);
   --speed: 60;
@@ -780,7 +779,7 @@ a { color: inherit; text-decoration: none; }
   position: relative;
   width: 100vw;
   margin: 80px 0 0 calc(50% - 50vw);
-  padding-top: 20px;
+  padding: 20px 0 30px;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
@@ -806,26 +805,9 @@ a { color: inherit; text-decoration: none; }
   transform: translateY(-14px) scale(1.04);
   filter: drop-shadow(0 26px 18px rgba(0,0,0,.18));
 }
-.conveyor:hover .conveyor-track,
-.conveyor:hover .conveyor-belt { animation-play-state: paused; }
+.conveyor:hover .conveyor-track { animation-play-state: paused; }
 @keyframes conveyor {
   to { transform: translateX(calc(var(--half) * -1px)); }
-}
-
-.conveyor-belt {
-  position: relative;
-  height: 18px;
-  /* the PNGs have a little empty space under the feet; tuck the belt up into it */
-  margin-top: calc(var(--h) * -.045);
-  border-radius: 999px;
-  background:
-    repeating-linear-gradient(90deg, rgba(255,255,255,.14) 0 2px, transparent 2px 40px),
-    linear-gradient(#2a2a2a, #111);
-  box-shadow: inset 0 2px 0 rgba(255,255,255,.08), 0 16px 26px -14px rgba(0,0,0,.45);
-  animation: belt calc(40 / var(--speed) * 1s) linear infinite;
-}
-@keyframes belt {
-  to { background-position: -40px 0, 0 0; }
 }
 
 .footer {
