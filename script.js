@@ -93,3 +93,126 @@ new IntersectionObserver(
   },
   { threshold: 0.5 }
 ).observe(demoVideo);
+
+/* ---------- product carousel (autoplay, loops forever) ---------- */
+const carousel = document.querySelector("[data-carousel]");
+const items = [...carousel.querySelectorAll(".carousel-item")];
+const captions = [...carousel.querySelectorAll(".caption")];
+const dots = [...carousel.querySelectorAll("[data-go]")];
+const [prevBtn, nextBtn] = carousel.querySelectorAll(".carousel-btn");
+const slideCount = items.length;
+const HOLD_MS = 3200; // how long each device stays in focus
+const mod = (n, m) => ((n % m) + m) % m;
+
+// `pos` keeps counting up forever; each item sits at its looped distance from it
+let pos = 0;
+let target = 0;
+let activeSlide = -1;
+
+function renderCarousel() {
+  items.forEach((item, i) => {
+    // distance wrapped into [-n/2, n/2) so the loop has no seam
+    const d = mod(i - pos + slideCount / 2, slideCount) - slideCount / 2;
+    const ad = Math.abs(d);
+    // fade to 0 at the far edge, where an item wraps from one side to the other
+    const o = ad <= 1 ? 1 - ad * 0.5 : Math.max(0, 0.5 * (1 - (ad - 1) / 0.5));
+    item.style.setProperty("--d", d.toFixed(3));
+    item.style.setProperty("--ad", ad.toFixed(3));
+    item.style.setProperty("--o", o.toFixed(3));
+    item.style.zIndex = String(10 - Math.round(ad * 3));
+  });
+  const current = mod(Math.round(pos), slideCount);
+  if (current === activeSlide) return;
+  activeSlide = current;
+  items.forEach((el, i) => el.classList.toggle("is-active", i === current));
+  captions.forEach((el, i) => el.classList.toggle("is-active", i === current));
+  dots.forEach((el, i) => el.classList.toggle("is-active", i === current));
+}
+
+// ease pos toward target
+let lastFrame = performance.now();
+function frame(now) {
+  const dt = Math.min(64, now - lastFrame);
+  lastFrame = now;
+  const diff = target - pos;
+  pos = Math.abs(diff) < 0.001 ? target : pos + diff * (1 - Math.exp(-dt / 170));
+  renderCarousel();
+  requestAnimationFrame(frame);
+}
+
+// autoplay: advance every HOLD_MS while visible and not hovered
+let paused = false;
+let onScreen = false;
+let timer = null;
+function schedule() {
+  clearTimeout(timer);
+  if (reduceMotion || paused || !onScreen || document.hidden) return;
+  timer = setTimeout(() => {
+    target += 1;
+    schedule();
+  }, HOLD_MS);
+}
+function step(dir) {
+  target = Math.round(target) + dir;
+  if (reduceMotion) pos = target;
+  schedule();
+}
+// jump to slide i the short way round the loop
+function goTo(i) {
+  const delta = mod(i - mod(Math.round(target), slideCount) + slideCount / 2, slideCount) - slideCount / 2;
+  step(Math.round(delta));
+}
+
+prevBtn.addEventListener("click", () => step(-1));
+nextBtn.addEventListener("click", () => step(1));
+dots.forEach((dot) => dot.addEventListener("click", () => goTo(Number(dot.dataset.go))));
+items.forEach((item, i) => item.addEventListener("click", () => i !== activeSlide && goTo(i)));
+
+const stage = carousel.querySelector(".carousel");
+stage.addEventListener("mouseenter", () => { paused = true; schedule(); });
+stage.addEventListener("mouseleave", () => { paused = false; schedule(); });
+document.addEventListener("visibilitychange", schedule);
+new IntersectionObserver(([entry]) => {
+  onScreen = entry.isIntersecting;
+  schedule();
+}, { threshold: 0.35 }).observe(carousel);
+
+renderCarousel();
+requestAnimationFrame(frame);
+
+/* ---------- nav: collapse into a corner button on scroll ---------- */
+const navToggle = nav.querySelector(".nav-toggle");
+const COLLAPSE_AFTER = 140; // px scrolled before the nav collapses
+let lastNavY = window.scrollY;
+let openedAtY = null; // where the user re-opened it with the button
+
+function setNavCollapsed(collapsed) {
+  if (nav.classList.contains("collapsed") === collapsed) return;
+  nav.classList.toggle("collapsed", collapsed);
+  navToggle.setAttribute("aria-expanded", String(!collapsed));
+}
+
+window.addEventListener(
+  "scroll",
+  () => {
+    const y = window.scrollY;
+    if (y < COLLAPSE_AFTER * 0.6) {
+      openedAtY = null;
+      setNavCollapsed(false);
+    } else if (y > lastNavY + 2 && y > COLLAPSE_AFTER) {
+      // re-opened by hand: stay open until the user scrolls on a bit further
+      if (openedAtY === null || y - openedAtY > 120) {
+        openedAtY = null;
+        setNavCollapsed(true);
+      }
+    }
+    lastNavY = y;
+  },
+  { passive: true }
+);
+
+navToggle.addEventListener("click", () => {
+  openedAtY = window.scrollY;
+  setNavCollapsed(false);
+});
+setNavCollapsed(window.scrollY > COLLAPSE_AFTER);

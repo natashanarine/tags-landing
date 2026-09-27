@@ -14,17 +14,20 @@
 
   <!-- ========== NAV ========== -->
   <header class="nav">
-    <a href="#top" class="logo" aria-label="tags home">
+    <a href="#top" class="logo" aria-label="tags home" style="--i:0">
       <span>tags</span>
       <svg class="logo-tag" viewBox="0 0 40 52" aria-hidden="true"><path d="M20 2 36 17v29a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V17Z"/><circle cx="20" cy="15" r="3.5"/></svg>
     </a>
     <nav class="nav-links">
-      <a href="#problem">why</a>
-      <a href="#product">product</a>
-      <a href="#demo">demo</a>
-      <a href="#next">next</a>
+      <a href="#problem" style="--i:1">why</a>
+      <a href="#product" style="--i:2">product</a>
+      <a href="#demo" style="--i:3">demo</a>
+      <a href="#next" style="--i:4">next</a>
     </nav>
-    <a href="#cta" class="btn btn-dark btn-sm">Add to Chrome</a>
+    <a href="#cta" class="btn btn-dark btn-sm" style="--i:5">Add to Chrome</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 40 52" aria-hidden="true"><path d="M20 2 36 17v29a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V17Z"/><circle cx="20" cy="15" r="3.5"/></svg>
+    </button>
   </header>
 
   <main id="top">
@@ -123,70 +126,97 @@
       </div>
     </section>
 
-    <!-- ========== PRODUCT ========== -->
-    <section class="section product" id="product">
-      <h2 class="section-title reveal">
-        <span class="wordmark">tags</span> puts the fitting room<br class="br-lg" /> inside your browser.
-      </h2>
+    <!-- ========== PRODUCT (scroll-driven device carousel) ========== -->
+    <section class="product" id="product" data-carousel>
+      <div class="product-sticky">
+        <h2 class="section-title product-title reveal">
+          <span class="wordmark">tags</span> puts the fitting room<br class="br-lg" /> inside your browser.
+        </h2>
 
-      <div class="devices">
-        <!-- live try on -->
-        <div class="device-col reveal" style="--d:0s">
-          <p class="eyebrow">on any product page</p>
-          <h3>live try on</h3>
-          <div class="laptop float" style="--f:0s">
-            <div class="laptop-lid">
-              <div class="laptop-screen">
-                <!-- SWAP: live try-on images -->
-                <div class="tryon">
-                  <img class="tryon-before" src="assets/live-before.svg" alt="Product page photo" />
-                  <img class="tryon-after" src="assets/live-after.svg" alt="Live try-on result" />
-                  <span class="tryon-line"></span>
+        <div class="carousel" aria-roledescription="carousel">
+          <!-- live try on -->
+          <div class="carousel-item is-laptop" data-slide="0">
+            <div class="laptop float" style="--f:0s">
+              <div class="laptop-lid">
+                <div class="laptop-screen">
+                  <!-- SWAP: live try-on images -->
+                  <div class="tryon">
+                    <img class="tryon-before" src="assets/live-before.svg" alt="Product page photo" />
+                    <img class="tryon-after" src="assets/live-after.svg" alt="Live try-on result" />
+                    <span class="tryon-line"></span>
+                  </div>
                 </div>
               </div>
+              <div class="laptop-base"></div>
             </div>
-            <div class="laptop-base"></div>
+          </div>
+
+          <!-- outfit feed -->
+          <div class="carousel-item" data-slide="1">
+            <div class="phone float" style="--f:.8s">
+              <div class="phone-screen">
+                <!-- SWAP: outfit feed images (the list is duplicated for a seamless loop) -->
+                <div class="feed">
+                  <div class="feed-track">
+                    <img src="assets/feed-1.svg" alt="Outfit 1" />
+                    <img src="assets/feed-2.svg" alt="Outfit 2" />
+                    <img src="assets/feed-3.svg" alt="Outfit 3" />
+                    <img src="assets/feed-1.svg" alt="" aria-hidden="true" />
+                    <img src="assets/feed-2.svg" alt="" aria-hidden="true" />
+                    <img src="assets/feed-3.svg" alt="" aria-hidden="true" />
+                  </div>
+                </div>
+              </div>
+              <img class="phone-frame" src="assets/iphone-16-pro.svg" alt="" aria-hidden="true" />
+            </div>
+          </div>
+
+          <!-- scan now, try later -->
+          <div class="carousel-item" data-slide="2">
+            <div class="phone float" style="--f:1.6s">
+              <div class="phone-screen">
+                <!-- SWAP: in-store camera image -->
+                <img class="scan-img" src="assets/scan.svg" alt="Scanning a clothing tag in store" />
+                <div class="scan-frame"><i></i><i></i><i></i><i></i><span class="scan-beam"></span></div>
+                <div class="toast">✓ saved for later</div>
+              </div>
+              <img class="phone-frame" src="assets/iphone-16-pro.svg" alt="" aria-hidden="true" />
+            </div>
           </div>
         </div>
 
-        <!-- outfit feed -->
-        <div class="device-col reveal" style="--d:.15s">
-          <p class="eyebrow">on your phone</p>
-          <h3>outfit feed</h3>
-          <div class="phone float" style="--f:.8s">
-            <div class="phone-screen">
-              <span class="island"></span>
-              <!-- SWAP: outfit feed images (the list is duplicated for a seamless loop) -->
-              <div class="feed">
-                <div class="feed-track">
-                  <img src="assets/feed-1.svg" alt="Outfit 1" />
-                  <img src="assets/feed-2.svg" alt="Outfit 2" />
-                  <img src="assets/feed-3.svg" alt="Outfit 3" />
-                  <img src="assets/feed-1.svg" alt="" aria-hidden="true" />
-                  <img src="assets/feed-2.svg" alt="" aria-hidden="true" />
-                  <img src="assets/feed-3.svg" alt="" aria-hidden="true" />
-                </div>
-              </div>
-            </div>
+        <div class="captions" aria-live="polite">
+          <div class="caption" data-slide="0">
+            <p class="eyebrow">on any product page</p>
+            <h3>live try on</h3>
+          </div>
+          <div class="caption" data-slide="1">
+            <p class="eyebrow">on your phone</p>
+            <h3>outfit feed</h3>
+          </div>
+          <div class="caption" data-slide="2">
+            <p class="eyebrow">in the store</p>
+            <h3>scan now, try later</h3>
           </div>
         </div>
 
-        <!-- scan now, try later -->
-        <div class="device-col reveal" style="--d:.3s">
-          <p class="eyebrow">in the store</p>
-          <h3>scan now, try later</h3>
-          <div class="phone float" style="--f:1.6s">
-            <div class="phone-screen">
-              <span class="island"></span>
-              <!-- SWAP: in-store camera image -->
-              <img class="scan-img" src="assets/scan.svg" alt="Scanning a clothing tag in store" />
-              <div class="scan-frame"><i></i><i></i><i></i><i></i><span class="scan-beam"></span></div>
-              <div class="toast">✓ saved for later</div>
-            </div>
+        <div class="carousel-controls">
+          <button class="carousel-btn" data-dir="-1" aria-label="Previous">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <div class="carousel-dots">
+            <button data-go="0" aria-label="Live try on"></button>
+            <button data-go="1" aria-label="Outfit feed"></button>
+            <button data-go="2" aria-label="Scan now, try later"></button>
           </div>
+          <button class="carousel-btn" data-dir="1" aria-label="Next">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
         </div>
       </div>
+    </section>
 
+    <section class="section buy">
       <div class="buy-banner reveal">
         <p><span>Buy the look:</span> <strong>Every try-on ends in one-tap Visa checkout.</strong></p>
         <span class="pay-btn" aria-hidden="true"><span class="pay-label">Pay with Visa</span><span class="pay-done">✓ Paid</span></span>
@@ -277,10 +307,10 @@
         </div>
         <div class="phone reveal" style="--d:.35s">
           <div class="phone-screen">
-            <span class="island"></span>
             <!-- SWAP: lineup phone image -->
             <img src="assets/feed-2.svg" alt="" />
           </div>
+          <img class="phone-frame" src="assets/iphone-16-pro.svg" alt="" aria-hidden="true" />
         </div>
       </div>
     </section>

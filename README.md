@@ -15,3 +15,7 @@ Every image lives in `assets/`. Replace a file with your own (keep the same name
 | `demo.mp4` + `demo-poster.*` | "see it live" section | 16:10 |
 
 Images are cropped with `object-fit: cover`, so close-enough ratios are fine. If you change a file extension (e.g. `.svg` → `.jpg`), update the `src` too. The feed images appear twice in the markup for the seamless loop, so update both copies.
+
+## Phone frame
+
+Phones use the iPhone 16 Pro frame in `assets/iphone-16-pro.svg`, laid over each phone's screen. The screen content (images, feed, scanner) goes inside `.phone-screen` and is clipped to the display, so you never need to edit the frame itself.

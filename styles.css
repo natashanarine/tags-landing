@@ -23,13 +23,13 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; overflow-x: clip; }
+html { scroll-behavior: smooth; }
 body {
   font-family: "Figtree", system-ui, -apple-system, sans-serif;
   background: var(--bg);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 img, video { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
@@ -104,26 +104,102 @@ a { color: inherit; text-decoration: none; }
 }
 .logo:hover .logo-tag { transform: rotate(18deg) translateY(-4px); }
 
+/* The nav is anchored by its right edge so it can slide into the corner.
+   Collapsing clips the pill down to a circle at its right end (clip-path),
+   while the contents stagger out toward that corner. */
 .nav {
+  --h: 62px;
   position: fixed;
-  inset: 16px 16px auto;
+  top: 16px;
+  right: max(16px, calc((100% - var(--maxw)) / 2));
   z-index: 50;
-  max-width: var(--maxw);
-  margin: 0 auto;
+  width: min(var(--maxw), calc(100% - 32px));
+  height: var(--h);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 12px 10px 22px;
+  padding: 0 11px 0 22px;
   border-radius: 999px;
   background: rgba(244,244,243,.7);
   backdrop-filter: blur(14px) saturate(1.4);
   -webkit-backdrop-filter: blur(14px) saturate(1.4);
   border: 1px solid rgba(0,0,0,.06);
-  transition: box-shadow .3s;
+  clip-path: inset(0 0 0 0 round calc(var(--h) / 2));
+  transition:
+    clip-path .75s cubic-bezier(.7, 0, .2, 1) .12s,
+    right .75s cubic-bezier(.7, 0, .2, 1) .12s,
+    box-shadow .3s;
 }
 .nav.scrolled { box-shadow: 0 10px 30px -18px rgba(0,0,0,.35); }
 .nav-links { display: flex; gap: 28px; font-weight: 600; color: var(--muted); }
 .nav-links a:hover { color: var(--ink); }
+
+/* each piece gets an index (--i) so they leave / return one after another */
+.nav > .logo, .nav-links a, .nav > .btn {
+  transition:
+    opacity .4s var(--ease),
+    transform .55s var(--ease),
+    filter .4s var(--ease),
+    color .2s;
+  transition-delay: calc((5 - var(--i)) * 45ms + .25s);
+}
+.nav.collapsed {
+  right: 16px;
+  clip-path: inset(0 0 0 calc(100% - var(--h)) round calc(var(--h) / 2));
+  transition-delay: .18s, .18s, 0s;
+}
+.nav.collapsed > .logo,
+.nav.collapsed .nav-links a,
+.nav.collapsed > .btn {
+  opacity: 0;
+  transform: translateX(60px) scale(.85);
+  filter: blur(6px);
+  pointer-events: none;
+  transition-delay: calc(var(--i) * 45ms);
+}
+
+.nav-toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: calc(var(--h) - 18px);
+  height: calc(var(--h) - 18px);
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(.2) rotate(-120deg);
+  pointer-events: none;
+  transition: opacity .25s, transform .35s var(--ease);
+}
+.nav.collapsed .nav-toggle {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition: opacity .3s .55s, transform .7s cubic-bezier(.34, 1.56, .64, 1) .55s;
+}
+.nav-toggle svg {
+  width: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.5;
+  transform-origin: 50% 15%;
+}
+.nav.collapsed .nav-toggle svg { animation: toggleSwing 1.6s ease-out .9s; }
+.nav-toggle:hover { transform: scale(1.08); }
+.nav-toggle:hover svg { animation: toggleSwing 1.2s ease-out; }
+@keyframes toggleSwing {
+  0%   { rotate: 0deg; }
+  20%  { rotate: 28deg; }
+  40%  { rotate: -18deg; }
+  60%  { rotate: 10deg; }
+  80%  { rotate: -4deg; }
+  100% { rotate: 0deg; }
+}
 
 /* ---------- device frames ---------- */
 .laptop { width: 100%; }
@@ -160,31 +236,34 @@ a { color: inherit; text-decoration: none; }
   border-radius: 0 0 8px 8px;
 }
 
+/* iPhone 16 Pro: the SVG frame (assets/iphone-16-pro.svg, 200x400) sits on top,
+   and .phone-screen fills its screen cutout (x 14.08, y 12.81, 171.98 x 374.37) */
 .phone {
+  position: relative;
   width: 100%;
   max-width: 250px;
   margin: 0 auto;
-  background: #111;
-  border-radius: 42px;
-  padding: 10px;
-  box-shadow: inset 0 0 0 2px #2c2c2c, 0 30px 60px -30px rgba(0,0,0,.4);
+  aspect-ratio: 1 / 2;
+  filter: drop-shadow(0 30px 30px rgba(0,0,0,.18));
 }
 .phone-screen {
-  position: relative;
-  aspect-ratio: 9 / 19.5;
-  border-radius: 33px;
+  position: absolute;
+  left: 7.04%;
+  top: 3.2025%;
+  width: 85.99%;
+  height: 93.5925%;
+  border-radius: 14.32% / 6.58%;
   overflow: hidden;
   background: #ddd;
 }
 .phone-screen > img { width: 100%; height: 100%; object-fit: cover; }
-.island {
+.phone-frame {
   position: absolute;
+  inset: 0;
   z-index: 5;
-  top: 10px; left: 50%;
-  width: 32%; height: 22px;
-  transform: translateX(-50%);
-  background: #000;
-  border-radius: 999px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .float { animation: float 6s ease-in-out infinite; animation-delay: var(--f, 0s); }
@@ -391,22 +470,102 @@ a { color: inherit; text-decoration: none; }
 
 /* ---------- product ---------- */
 .wordmark { font-weight: 900; letter-spacing: -0.06em; }
-.devices {
-  margin-top: 90px;
-  display: grid;
-  grid-template-columns: 1.6fr 1fr 1fr;
-  gap: 48px;
-  align-items: stretch;
+/* Autoplaying device carousel that loops forever. script.js sets each item's
+   --d (distance from the centre slot), --ad (|d|) and --o (opacity). */
+.product { max-width: var(--maxw); margin: 0 auto; }
+.product-sticky {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 140px 24px 40px;
+  overflow: hidden;
+  text-align: center;
+  --stage: clamp(280px, 56vh, 460px);
+  --gap: clamp(170px, 30vw, 440px);
 }
-.device-col { display: flex; flex-direction: column; }
-.device-col > .laptop, .device-col > .phone { margin-top: auto; }
-.devices .phone { max-width: 200px; }
-.device-col h3 {
+.product-title { font-size: clamp(2rem, 4.4vw, 3.8rem); }
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: var(--stage);
+  margin-top: 70px;
+  perspective: 1400px;
+}
+.carousel-item {
+  --d: 0;
+  --ad: 0;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: calc(var(--stage) / 2);
+  transform:
+    translateX(-50%)
+    translateX(calc(var(--d) * var(--gap)))
+    rotateY(calc(var(--d) * -22deg))
+    scale(calc(1 - min(var(--ad), 1.4) * .22));
+  transform-origin: 50% 100%;
+  opacity: var(--o, 1);
+  filter: saturate(calc(1 - min(var(--ad), 1) * .6));
+  will-change: transform, opacity;
+}
+.carousel-item.is-laptop { width: min(calc(var(--stage) * 1.45), 86vw); }
+.carousel-item .phone { max-width: none; }
+.carousel-item.is-active { cursor: default; }
+.carousel-item:not(.is-active) { cursor: pointer; }
+
+.captions {
+  position: relative;
+  width: 100%;
+  height: 84px;
+  margin-top: 26px;
+}
+.caption {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .5s var(--ease), transform .5s var(--ease);
+  pointer-events: none;
+}
+.caption.is-active { opacity: 1; transform: none; }
+.caption h3 {
   font-size: clamp(1.5rem, 2.6vw, 2.2rem);
   font-weight: 800;
   letter-spacing: -0.03em;
-  margin: 2px 0 30px;
+  margin-top: 4px;
 }
+
+.carousel-controls { display: flex; align-items: center; gap: 18px; }
+.carousel-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color .3s, background .3s, transform .3s var(--ease);
+}
+.carousel-btn:hover { border-color: var(--ink); background: #fff; transform: translateY(-2px); }
+.carousel-btn svg { width: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.carousel-dots { display: flex; gap: 8px; }
+.carousel-dots button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--line);
+  cursor: pointer;
+  transition: width .4s var(--ease), background .4s;
+}
+.carousel-dots button.is-active { width: 28px; background: var(--ink); }
+
+.buy { padding-top: 40px; padding-bottom: 60px; }
+.buy .buy-banner { margin-top: 0; }
 
 .feed { position: absolute; inset: 0; overflow: hidden; }
 .feed-track {
@@ -541,7 +700,7 @@ a { color: inherit; text-decoration: none; }
 }
 .demo-laptop {
   width: min(1100px, 92vw, calc((100vh - 140px) * 1.45));
-  transform: scale(calc(.62 + .38 * var(--p)));
+  transform: scale(calc(.45 + .55 * var(--p)));
   transform-origin: 50% 30%;
 }
 
@@ -637,8 +796,6 @@ a { color: inherit; text-decoration: none; }
   .tags-row, .cards { grid-template-columns: 1fr; }
   .tags-row { gap: 90px; }
   .price-tag { max-width: 280px; }
-  .devices { grid-template-columns: 1fr 1fr; gap: 56px 24px; }
-  .devices .device-col:first-child { grid-column: 1 / -1; }
   .buy-banner { flex-direction: column; text-align: center; padding: 26px; }
   .br-lg { display: none; }
   .card { min-height: 0; }
@@ -648,10 +805,9 @@ a { color: inherit; text-decoration: none; }
   .hero { padding: 120px 16px 40px; }
   .hero-meta { flex-direction: column; gap: 16px; }
   .hero-meta .right { text-align: left; }
-  .devices { grid-template-columns: 1fr; }
+  .product-sticky { padding: 100px 16px 20px; --stage: clamp(300px, 60vh, 440px); --gap: 58vw; }
   .phone { max-width: 220px; }
-  .lineup .phone { width: 110px; border-radius: 26px; padding: 6px; }
-  .lineup .phone-screen { border-radius: 21px; }
+  .lineup .phone { width: 110px; }
   .footer { flex-direction: column; text-align: center; }
   .demo { height: 160vh; }
 }
