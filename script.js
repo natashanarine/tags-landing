@@ -52,14 +52,26 @@ document.querySelectorAll("[data-count]").forEach((el) => statObserver.observe(e
 const nav = document.querySelector(".nav");
 const hero = document.querySelector("[data-hero]");
 const demo = document.querySelector("[data-demo]");
+const heroPin = hero.querySelector(".hero-pin");
+const heroStage = hero.querySelector(".hero-stage");
+let pinTop = 0;
+
+// centre the pinned hero laptop vertically in the viewport
+function measureHeroPin() {
+  pinTop = Math.max(16, (window.innerHeight - heroStage.offsetHeight) / 2);
+  hero.style.setProperty("--pin-top", pinTop + "px");
+}
+measureHeroPin();
+window.addEventListener("resize", measureHeroPin);
 const demoVideo = demo.querySelector("video");
 
 function onScroll() {
   const vh = window.innerHeight;
   nav.classList.toggle("scrolled", window.scrollY > 10);
 
-  // hero laptop flattens as you scroll
-  hero.style.setProperty("--p", clamp(window.scrollY / (vh * 0.55)).toFixed(3));
+  // hero laptop flattens as it rises, finishing exactly when it pins in the middle
+  const pinStart = heroPin.getBoundingClientRect().top + window.scrollY - pinTop;
+  hero.style.setProperty("--p", clamp(window.scrollY / Math.max(1, pinStart)).toFixed(3));
 
   // demo laptop grows while the section is pinned
   const r = demo.getBoundingClientRect();
@@ -216,3 +228,15 @@ navToggle.addEventListener("click", () => {
   setNavCollapsed(false);
 });
 setNavCollapsed(window.scrollY > COLLAPSE_AFTER);
+
+/* ---------- outfit conveyor: measure one image set so the loop is seamless ---------- */
+const conveyor = document.querySelector("[data-conveyor]");
+const conveyorTrack = conveyor.querySelector(".conveyor-track");
+function measureConveyor() {
+  // distance from the first image to its duplicate = exact length of one set
+  const imgs = conveyorTrack.children;
+  const half = imgs[imgs.length / 2].offsetLeft - imgs[0].offsetLeft;
+  conveyor.style.setProperty("--half", half.toFixed(2));
+}
+measureConveyor();
+window.addEventListener("resize", measureConveyor);

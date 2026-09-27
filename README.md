@@ -13,8 +13,9 @@ Every image lives in `assets/`. Replace a file with your own (keep the same name
 | `feed-1..3.*` | "outfit feed" phone (auto-scrolls) | 4:5 |
 | `scan.*` | "scan now, try later" phone | 9:19.5, ~900×1950 |
 | `demo.mp4` + `demo-poster.*` | "see it live" section | 16:10 |
+| `1.png` … `7.png` | Outfit conveyor at the bottom of the page | 4:5, transparent background |
 
-Images are cropped with `object-fit: cover`, so close-enough ratios are fine. If you change a file extension (e.g. `.svg` → `.jpg`), update the `src` too. The feed images appear twice in the markup for the seamless loop, so update both copies.
+Images are cropped with `object-fit: cover`, so close-enough ratios are fine. If you change a file extension (e.g. `.svg` → `.jpg`), update the `src` too. The feed images and the conveyor images each appear twice in the markup for a seamless loop, so update both copies.
 
 ## Phone frame
 

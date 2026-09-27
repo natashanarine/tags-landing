@@ -47,27 +47,30 @@
         <a href="#demo" class="btn btn-ghost">Watch the demo ↓</a>
       </div>
 
-      <div class="hero-stage">
-        <div class="laptop hero-laptop">
-          <!-- hanging tag that swings off the laptop -->
-          <div class="hang-tag" aria-hidden="true">
-            <span class="hang-string"></span>
-            <svg viewBox="0 0 120 150"><path d="M60 4 112 50v84a12 12 0 0 1-12 12H20A12 12 0 0 1 8 134V50Z"/><circle cx="60" cy="40" r="9"/></svg>
-            <span class="hang-label">try me</span>
-          </div>
-          <div class="laptop-lid">
-            <div class="laptop-screen">
-              <!-- SWAP: hero try-on images (before = product photo, after = you wearing it) -->
-              <div class="tryon">
-                <img class="tryon-before" src="assets/hero-before.svg" alt="Product photo on a model" />
-                <img class="tryon-after" src="assets/hero-after.svg" alt="The same outfit on you" />
-                <span class="tryon-line"></span>
-                <span class="chip chip-left">you</span>
-                <span class="chip chip-right">product photo</span>
+      <!-- the stage pins in the middle of the screen once the laptop has straightened -->
+      <div class="hero-pin">
+        <div class="hero-stage">
+          <div class="laptop hero-laptop">
+            <!-- hanging tag that swings off the laptop -->
+            <div class="hang-tag" aria-hidden="true">
+              <span class="hang-string"></span>
+              <svg viewBox="0 0 120 150"><path d="M60 4 112 50v84a12 12 0 0 1-12 12H20A12 12 0 0 1 8 134V50Z"/><circle cx="60" cy="40" r="9"/></svg>
+              <span class="hang-label">try me</span>
+            </div>
+            <div class="laptop-lid">
+              <div class="laptop-screen">
+                <!-- SWAP: hero try-on images (before = product photo, after = you wearing it) -->
+                <div class="tryon">
+                  <img class="tryon-before" src="assets/hero-before.svg" alt="Product photo on a model" />
+                  <img class="tryon-after" src="assets/hero-after.svg" alt="The same outfit on you" />
+                  <span class="tryon-line"></span>
+                  <span class="chip chip-left">you</span>
+                  <span class="chip chip-right">product photo</span>
+                </div>
               </div>
             </div>
+            <div class="laptop-base"></div>
           </div>
-          <div class="laptop-base"></div>
         </div>
       </div>
 
@@ -295,23 +298,26 @@
       <div class="reveal" style="--d:.15s">
         <a href="#" class="btn btn-dark btn-lg">Add tags to Chrome</a>
       </div>
-      <div class="lineup">
-        <div class="laptop reveal" style="--d:.2s">
-          <div class="laptop-lid">
-            <div class="laptop-screen">
-              <!-- SWAP: lineup laptop image -->
-              <img src="assets/hero-after.svg" alt="" />
-            </div>
-          </div>
-          <div class="laptop-base"></div>
+      <!-- conveyor of outfits. SWAP: assets/1.png … 7.png (transparent cut-outs work best).
+           The set is listed twice so the loop is seamless; add or swap images in both sets. -->
+      <div class="conveyor reveal" style="--d:.25s" data-conveyor>
+        <div class="conveyor-track">
+          <img src="assets/1.png" alt="Outfit 1" loading="lazy" />
+          <img src="assets/2.png" alt="Outfit 2" loading="lazy" />
+          <img src="assets/3.png" alt="Outfit 3" loading="lazy" />
+          <img src="assets/4.png" alt="Outfit 4" loading="lazy" />
+          <img src="assets/5.png" alt="Outfit 5" loading="lazy" />
+          <img src="assets/6.png" alt="Outfit 6" loading="lazy" />
+          <img src="assets/7.png" alt="Outfit 7" loading="lazy" />
+          <img src="assets/1.png" alt="" aria-hidden="true" loading="lazy" />
+          <img src="assets/2.png" alt="" aria-hidden="true" loading="lazy" />
+          <img src="assets/3.png" alt="" aria-hidden="true" loading="lazy" />
+          <img src="assets/4.png" alt="" aria-hidden="true" loading="lazy" />
+          <img src="assets/5.png" alt="" aria-hidden="true" loading="lazy" />
+          <img src="assets/6.png" alt="" aria-hidden="true" loading="lazy" />
+          <img src="assets/7.png" alt="" aria-hidden="true" loading="lazy" />
         </div>
-        <div class="phone reveal" style="--d:.35s">
-          <div class="phone-screen">
-            <!-- SWAP: lineup phone image -->
-            <img src="assets/feed-2.svg" alt="" />
-          </div>
-          <img class="phone-frame" src="assets/iphone-16-pro.svg" alt="" aria-hidden="true" />
-        </div>
+        <div class="conveyor-belt" aria-hidden="true"></div>
       </div>
     </section>
   </main>
