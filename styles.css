@@ -341,10 +341,14 @@ a { color: inherit; text-decoration: none; }
   flex-wrap: wrap;
 }
 
+.hero-pin { margin-top: 20px; }
+/* extra scroll distance the laptop stays pinned for once it's flat */
+.hero-pin::after { content: ""; display: block; height: 45vh; }
 .hero-stage {
-  position: relative;
+  position: sticky;
+  top: var(--pin-top, 15vh);
   max-width: 900px;
-  margin: 20px auto 0;
+  margin: 0 auto;
   perspective: 1600px;
 }
 .hero-laptop {
@@ -766,16 +770,45 @@ a { color: inherit; text-decoration: none; }
   line-height: .98;
   margin-bottom: 40px;
 }
-.lineup {
-  margin: 90px auto 0;
-  max-width: 860px;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 26px;
+/* Outfit conveyor: a full-width row of figures scrolling on a loop.
+   script.js sets --half (px width of one image set); --speed is px per second. */
+.conveyor {
+  --h: clamp(280px, 36vw, 460px);
+  --speed: 60;
+  --half: 2000;
+  position: relative;
+  width: 100vw;
+  margin: 80px 0 0 calc(50% - 50vw);
+  padding: 20px 0 30px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
-.lineup .laptop { flex: 1; }
-.lineup .phone { width: 170px; flex-shrink: 0; margin: 0; }
+.conveyor-track {
+  display: flex;
+  width: max-content;
+  animation: conveyor calc(var(--half) / var(--speed) * 1s) linear infinite;
+}
+.conveyor-track img {
+  flex-shrink: 0;
+  height: var(--h);
+  width: calc(var(--h) * .8);
+  /* the PNGs have wide empty margins; pull neighbours closer together */
+  margin: 0 calc(var(--h) * -.15);
+  object-fit: contain;
+  object-position: bottom;
+  transform-origin: 50% 100%;
+  transition: transform .5s var(--ease), filter .5s var(--ease);
+  filter: drop-shadow(0 14px 10px rgba(0,0,0,.12));
+}
+.conveyor-track img:hover {
+  transform: translateY(-14px) scale(1.04);
+  filter: drop-shadow(0 26px 18px rgba(0,0,0,.18));
+}
+.conveyor:hover .conveyor-track { animation-play-state: paused; }
+@keyframes conveyor {
+  to { transform: translateX(calc(var(--half) * -1px)); }
+}
 
 .footer {
   max-width: var(--maxw);
@@ -807,7 +840,6 @@ a { color: inherit; text-decoration: none; }
   .hero-meta .right { text-align: left; }
   .product-sticky { padding: 100px 16px 20px; --stage: clamp(300px, 60vh, 440px); --gap: 58vw; }
   .phone { max-width: 220px; }
-  .lineup .phone { width: 110px; }
   .footer { flex-direction: column; text-align: center; }
   .demo { height: 160vh; }
 }
